@@ -1,16 +1,32 @@
 #include "StdInc.h"
 #include "CControl.h"
 
+map<string, CMaster *> CControl::m_mapBots;
+Config *CControl::m_pConfig;
+
 void CControl::botCreate(string strConfig)
 {
 }
 
-void CControl::botRemove(string strConfig)
+bool CControl::botRemove(string strConfig)
 {
+	strConfig = strConfig.c_str();
+	if (m_mapBots[strConfig] != NULL)
+	{
+		m_mapBots[strConfig]->_onDestruct();
+		m_mapBots[strConfig] = NULL;
+		return true;
+	}
+	return false;
 }
 
 void CControl::botSend(string strConfig, string strMessage)
 {
+	strConfig = strConfig.c_str();
+	if (m_mapBots[strConfig] != NULL)
+	{
+		m_mapBots[strConfig]->sendRaw(strMessage);
+	}
 }
 
 /* IDK.. dimensions???

@@ -10,4 +10,6 @@ typedef std::map<std::string, stringmap> map2d;
 // Config["section"]["key"] = "value";
 typedef map2d Config;
 
+#define IRC_EOL "\r\n"
+
 #endif
