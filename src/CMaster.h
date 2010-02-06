@@ -6,7 +6,7 @@ class CMaster;
 class CMaster
 {
 public:
-	CMaster();
+	CMaster(string strKey, Config *pConfig);
 	~CMaster();
 
 private:

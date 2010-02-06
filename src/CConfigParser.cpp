@@ -61,7 +61,7 @@ void CConfigParser::parseConfigFile(string strConfig)
 	if (strConfig[0] == '~')
 		return;
 	
-	map<string, string> mapConfig;
+	Config mapConfig;
 	// parse it into mapConfig
 
 	if (mapConfig.size() <= 1)
@@ -70,11 +70,19 @@ void CConfigParser::parseConfigFile(string strConfig)
 		return;
 	}
 
-	for (map<string, string>::iterator i = mapConfig.begin(); i != mapConfig.end(); ++i)
+	// iterate the sections
+	for (Config::iterator i = mapConfig.begin(); i != mapConfig.end(); ++i)
 	{
-		// key: i->first
-		// value: i->second
-		// ..
+		string strSection = i->first;
+		stringmap mapSection = i->second;
+
+		// iterate the items in this section
+		for (stringmap::iterator i = mapSection.begin(); i != mapSection.end(); ++i)
+		{
+			string strKey = i->first;
+			string strValue = i->second;
+			// mapConfig[strSection][strKey] == strValue;
+		}
 	}
 
 	// add a new master for this config
