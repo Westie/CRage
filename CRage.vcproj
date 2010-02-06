@@ -45,7 +45,8 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="StdInc.h"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -174,12 +175,28 @@
 				RelativePath=".\src\Main.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\StdInc.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\src\StdInc.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"
