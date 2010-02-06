@@ -71,16 +71,16 @@ void CConfigParser::parseConfigFile(string strConfig)
 	}
 
 	// iterate the sections
-	for (Config::iterator i = mapConfig.begin(); i != mapConfig.end(); ++i)
+	foreach (Config, mapConfig, i)
 	{
 		string strSection = i->first;
 		stringmap mapSection = i->second;
 
 		// iterate the items in this section
-		for (stringmap::iterator i = mapSection.begin(); i != mapSection.end(); ++i)
+		foreach (stringmap, mapSection, j)
 		{
-			string strKey = i->first;
-			string strValue = i->second;
+			string strKey = j->first;
+			string strValue = j->second;
 			// mapConfig[strSection][strKey] == strValue;
 		}
 	}

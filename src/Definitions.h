@@ -10,6 +10,8 @@ typedef std::map<std::string, stringmap> map2d;
 // Config["section"]["key"] = "value";
 typedef map2d Config;
 
+#define foreach(type, elem, itname) for (type::iterator itname = elem.begin(); itname != elem.end(); ++itname)
+
 #define IRC_EOL "\r\n"
 
 #endif
