@@ -93,7 +93,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -116,7 +116,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -133,6 +133,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -172,6 +173,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\CConfigParser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CMaster.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\CSocket.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Main.cpp"
 				>
 			</File>
@@ -187,6 +200,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\src\StringUtils.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -194,7 +211,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\src\CConfigParser.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CMaster.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\CSocket.h"
+				>
+			</File>
+			<File
 				RelativePath=".\src\StdInc.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\StringUtils.h"
 				>
 			</File>
 		</Filter>
