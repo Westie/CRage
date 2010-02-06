@@ -9,7 +9,7 @@ class CControl
 {
 public:
 	static map<string, CMaster *> m_mapBots;
-	static Config *m_pConfig;
+	static Config_t *m_pConfig;
 
 	static void botCreate(string strConfig);
 	static bool botRemove(string strConfig);

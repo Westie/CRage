@@ -61,7 +61,7 @@ void CConfigParser::parseConfigFile(string strConfig)
 	if (strConfig[0] == '~')
 		return;
 	
-	Config mapConfig;
+	Config_t mapConfig;
 	// parse it into mapConfig
 
 	if (mapConfig.size() <= 1)
@@ -71,7 +71,7 @@ void CConfigParser::parseConfigFile(string strConfig)
 	}
 
 	// iterate the sections
-	foreach (Config, mapConfig, i)
+	foreach (Config_t, mapConfig, i)
 	{
 		string strSection = i->first;
 		stringmap mapSection = i->second;

@@ -1,7 +1,7 @@
 #include "StdInc.h"
 #include "CSocket.h"
 
-CSocket::CSocket(CMaster *pMaster, string strChild, Config *pConfig)
+CSocket::CSocket(CMaster *pMaster, string strChild, Config_t *pConfig)
 {
 	m_bActive = false;
 	m_bIsWaiting = false;
@@ -27,7 +27,7 @@ void CSocket::constructBot()
 	}
 #endif
 
-	Config *pConfig = m_pMaster->m_pConfig;
+	Config_t *pConfig = m_pMaster->m_pConfig;
 
 	m_Socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (m_Socket == INVALID_SOCKET)

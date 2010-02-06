@@ -8,7 +8,7 @@ typedef std::map<std::string, std::string> stringmap;
 typedef std::map<std::string, stringmap> map2d;
 
 // Config["section"]["key"] = "value";
-typedef map2d Config;
+typedef map2d Config_t;
 
 #define foreach(type, elem, itname) for (type::iterator itname = elem.begin(); itname != elem.end(); ++itname)
 

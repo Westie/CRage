@@ -6,13 +6,13 @@ class CMaster;
 class CMaster
 {
 public:
-	CMaster(string strKey, Config *pConfig);
+	CMaster(string strKey, Config_t *pConfig);
 	~CMaster();
 
 	void _onDestruct();
 	void sendRaw(string strMessage);
 
-	Config *m_pConfig;
+	Config_t *m_pConfig;
 
 private:
 	string m_strBotGroup;
