@@ -1,14 +1,14 @@
 #include "StdInc.h"
 #include "CSocket.h"
 
-CSocket::CSocket(CMaster *pMaster, string strChild, Config_t *pConfig)
+CSocket::CSocket(CMaster *pMaster, string strChild, stringmap mapBasic)
 {
 	m_bActive = false;
 	m_bIsWaiting = false;
 
 	m_pMaster = pMaster;
 	m_strChild = strChild;
-	m_pConfig = pConfig;
+	m_mapBasic = mapBasic;
 
 	constructBot();
 }

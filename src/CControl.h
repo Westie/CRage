@@ -4,12 +4,13 @@ class CControl;
 #define _CCONTROL_H
 
 #include "CMaster.h"
+#include "CConfigParser.h"
 
 class CControl
 {
 public:
 	static map<string, CMaster *> m_mapBots;
-	static Config_t *m_pConfig;
+	static CConfigParser *m_pConfigParser;
 
 	static void botCreate(string strConfig);
 	static bool botRemove(string strConfig);

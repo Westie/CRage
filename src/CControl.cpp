@@ -2,7 +2,7 @@
 #include "CControl.h"
 
 map<string, CMaster *> CControl::m_mapBots;
-Config_t *CControl::m_pConfig;
+CConfigParser *CControl::m_pConfigParser;
 
 void CControl::botCreate(string strConfig)
 {

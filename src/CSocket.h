@@ -8,7 +8,7 @@ class CSocket;
 class CSocket
 {
 public:
-	CSocket(CMaster *pMaster, string strChild, Config_t *pConfig);
+	CSocket(CMaster *pMaster, string strChild, stringmap mapBasic);
 	~CSocket();
 
 	void constructBot();
@@ -17,13 +17,13 @@ public:
 	int Output(string strRaw);
 	int OutputFormat(string strFormat, ...);
 
+	string m_strChild;
+	stringmap m_mapBasic;
 private:
 	SOCKET m_Socket;
 	bool m_bActive;
 	bool m_bIsWaiting;
 	CMaster *m_pMaster;
-	string m_strChild;
-	Config_t *m_pConfig;
 };
 
 #endif
