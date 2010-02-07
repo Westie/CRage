@@ -173,27 +173,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\CConfigParser.cpp"
+				RelativePath=".\Source\CConfigParser.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\CControl.cpp"
+				RelativePath=".\Source\CControl.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\CMaster.cpp"
+				RelativePath=".\Source\CMaster.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\CSocket.cpp"
+				RelativePath=".\Source\CSocket.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\Main.cpp"
+				RelativePath=".\Source\Main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\src\StdInc.cpp"
+				RelativePath=".\Source\StdInc.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -205,7 +205,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\StringUtils.cpp"
+				RelativePath=".\Source\StringUtils.cpp"
 				>
 			</File>
 		</Filter>
@@ -215,31 +215,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\src\CConfigParser.h"
+				RelativePath=".\Source\CConfigParser.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\CControl.h"
+				RelativePath=".\Source\CControl.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\CMaster.h"
+				RelativePath=".\Source\CMaster.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\CSocket.h"
+				RelativePath=".\Source\CSocket.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\Definitions.h"
+				RelativePath=".\Source\Definitions.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\StdInc.h"
+				RelativePath=".\Source\StdInc.h"
 				>
 			</File>
 			<File
-				RelativePath=".\src\StringUtils.h"
+				RelativePath=".\Source\StringUtils.h"
 				>
 			</File>
 		</Filter>
