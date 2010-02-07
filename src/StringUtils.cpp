@@ -115,3 +115,5 @@ std::string trimString(std::string &str)
 	ret = ret.substr(OffStart, ret.length() - OffEnd - OffStart);
 	return ret;
 }
+
+

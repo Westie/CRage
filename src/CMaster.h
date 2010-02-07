@@ -4,6 +4,7 @@ class CMaster;
 #define _CMASTER_H
 
 #include <list>
+#include <vector>
 #include "CSocket.h"
 
 class CMaster
@@ -23,6 +24,8 @@ public:
 	bool resetChild(string strChild, string strMessage = "Rehash!");
 	string getChildConfig(string strKey);
 	string getMasterConfig(string strKey);
+	void getSend(CSocket *pSocket, string strLine);
+	void sortChunks(vector<string> *vecChunks);
 	void sendRaw(string strMessage);
 
 	NetworkConfig_t *m_pNetworkConfig;
@@ -30,12 +33,15 @@ public:
 
 private:
 	bool _addChild(string strChild, stringmap mapInfo);
+	void _onRaw(vector<string> vecChunks);
+	void _onConnect();
 
 	string m_strBotGroup;
 	bool m_bMasterPresent;
 	string m_strMasterKey;
 	list<CSocket *> m_lstBotObjects;
 	CSocket *m_pCurrentBot;
+	string m_strCurrentLine;
 	list<string> m_lstOwners;
 };
 

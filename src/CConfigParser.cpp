@@ -96,6 +96,9 @@ void CConfigParser::parseConfigFile(string strConfig)
 			{
 				strCurrentSection = strLine.substr(1);
 				*(strCurrentSection.end() - 1) = '\0';
+
+				if (strCurrentSection[0] != '~')
+					(*pConfig)[string(strCurrentSection)]["nickname"] = strCurrentSection;
 			}
 			else
 			{

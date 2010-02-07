@@ -13,7 +13,7 @@ int main(int args, char *argv[])
 	{
 		for (map<string, CMaster *>::iterator i = CControl::m_mapBots.begin(); i != CControl::m_mapBots.end(); ++i)
 		{
-			//i->second->Loop();
+			i->second->Loop();
 		}
 
 		//Timers::Scan();
