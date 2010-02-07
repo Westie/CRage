@@ -115,9 +115,13 @@ void CConfigParser::parseConfigFile(string strConfig)
 					}
 
 					if (strCurrentSection[0] != '~')
+					{
 						(*pConfig)[string(strCurrentSection)][string(strKey)] = strValue;
+					}
 					else
+					{
 						(*pNetworkConfig)[string(strKey)] = strValue;
+					}
 				}
 			}
 		}

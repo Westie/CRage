@@ -12,8 +12,8 @@ CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConf
 
 	if (pNetworkConfig != NULL)
 	{
-		if ((*pNetworkConfig)["delimeter"].empty())
-			(*pNetworkConfig)["delimeter"] = "!";
+		if ((*pNetworkConfig)["delimiter"].empty())
+			(*pNetworkConfig)["delimiter"] = "!";
 
 		if ((*pNetworkConfig)["rotation"].empty())
 			(*pNetworkConfig)["rotation"] = "SEND_DEF";
@@ -30,7 +30,7 @@ CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConf
 	{
 		foreach(Config_t, (*m_pConfig), i)
 		{
-			addChild(i->first, i->second["nickname"], i->second["username"], i->second["realname"]);
+			_addChild(i->first, i->second);
 		}
 	}
 }
@@ -59,6 +59,7 @@ bool CMaster::_addChild(string strChild, stringmap mapInfo)
 	if (doesChildExist(strChild))
 		return false;
 
+	mapInfo["reactevent"] = "true";
 	mapInfo["slave"] = m_bMasterPresent ? "true" : "false";
 
 	if (!m_bMasterPresent)
@@ -165,6 +166,8 @@ string CMaster::getMasterConfig(string strKey)
 
 void CMaster::getSend(CSocket *pSocket, string strLine)
 {
+	printf("[-in] %s\n", strLine.c_str());
+
 	if (strLine.length() < 3)
 		return;
 
@@ -194,13 +197,16 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 
 	sortChunks(&vecParts);
 
-	bool bReactevent = getChildConfig("reactevent") != "false";
+	bool bReactevent = (getChildConfig("reactevent") != "false");
+
 	if (bReactevent)
 	{
 	}
 
 	if (vecParts[0] == "PING")
+	{
 		pSocket->OutputFormat("PONG " + vecParts[1]);
+	}
 	else if (vecParts[1] == "PONG")
 	{
 		//iNoReply = 0;
@@ -208,7 +214,7 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 		//return;
 	}
 
-	if (!bReactevent)
+	if (bReactevent)
 	{
 		_onRaw(vecParts);
 		return;
@@ -219,13 +225,22 @@ void CMaster::_onRaw(vector<string> vecChunks)
 {
 	switch (toNumber(vecChunks[1]))
 	{
-	case 001:
-		_onConnect();
-		return;
-	case 433:
-		/*if (!getChildConfig("altnick").empty())
-			m_pCurrentBot->setNickname(.......*/
-		return;
+		case 001:
+		{
+			_onConnect();
+			return;
+		}
+
+		case 433:
+		{
+			if (!getChildConfig("altnick").empty())
+			{
+				printf(getChildConfig("altnick").c_str());
+				m_pCurrentBot->setNickname(getChildConfig("altnick"));
+			}
+	
+			return;
+		}
 	}
 }
 

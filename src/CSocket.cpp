@@ -79,7 +79,8 @@ void CSocket::constructBot()
 	}
 
 	// identify (NICK, USER)
-	OutputFormat("NICK %s" IRC_EOL "USER %s x x :%s", m_mapBasic["nickname"].c_str(), m_mapBasic["username"].c_str(), m_mapBasic["realname"].c_str());
+	OutputFormat("NICK %s", m_mapBasic["nickname"].c_str());
+	OutputFormat("USER %s x x :%s", m_mapBasic["username"].c_str(), m_mapBasic["realname"].c_str());
 
 	m_bActive = true;
 	m_bIsWaiting = false;
@@ -169,4 +170,11 @@ void CSocket::Input()
 bool CSocket::isSocketActive()
 {
 	return m_bActive && m_Socket != INVALID_SOCKET;
+}
+
+
+void CSocket::setNickname(string sNickname)
+{
+	OutputFormat("NICK %s", sNickname.c_str());
+	m_mapBasic["nickname"] = sNickname;
 }

@@ -11,21 +11,27 @@ public:
 	CSocket(CMaster *pMaster, string strChild, stringmap mapBasic);
 	~CSocket();
 
-	void constructBot();
-	void destructBot();
-	void destructBot(string strMessage);
-	int Output(string strRaw);
-	int OutputFormat(string strFormat, ...);
-	void Input();
+	void
+		constructBot(),
+		destructBot(),
+		destructBot(string strMessage),
+		setNickname(string sNickname),
+		Input();
+
+	int
+		OutputFormat(string strFormat, ...),
+		Output(string strRaw);
 
 	string m_strChild;
 	stringmap m_mapBasic;
-private:
-	bool isSocketActive();
 
+private:
+	bool
+		isSocketActive(),
+		m_bActive,
+		m_bIsWaiting;
+	
 	SOCKET m_Socket;
-	bool m_bActive;
-	bool m_bIsWaiting;
 	CMaster *m_pMaster;
 };
 
