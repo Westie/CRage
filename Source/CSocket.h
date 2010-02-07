@@ -22,8 +22,14 @@ public:
 		OutputFormat(string strFormat, ...),
 		Output(string strRaw);
 
-	string m_strChild;
-	stringmap m_mapBasic;
+	string
+		m_strChild;
+
+	stringmap
+		m_mapBasic;
+
+	map<string, map<string, int>>
+		m_mapStatistics;
 
 private:
 	bool
@@ -31,8 +37,11 @@ private:
 		m_bActive,
 		m_bIsWaiting;
 	
-	SOCKET m_Socket;
-	CMaster *m_pMaster;
+	SOCKET
+		m_Socket;
+
+	CMaster
+		*m_pMaster;
 };
 
 #endif

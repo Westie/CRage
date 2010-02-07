@@ -1,6 +1,7 @@
 #include "StdInc.h"
 #include "CMaster.h"
 
+
 CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConfig)
 {
 	m_pConfig = pConfig;
@@ -13,19 +14,48 @@ CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConf
 	if (pNetworkConfig != NULL)
 	{
 		if ((*pNetworkConfig)["delimiter"].empty())
+		{
 			(*pNetworkConfig)["delimiter"] = "!";
+		}
 
 		if ((*pNetworkConfig)["rotation"].empty())
+		{
 			(*pNetworkConfig)["rotation"] = "SEND_DEF";
+		}
 
 		if ((*pNetworkConfig)["quitmsg"].empty())
+		{
 			(*pNetworkConfig)["quitmsg"] = "CRage is going to bed :(";
-		
-		if ((*pNetworkConfig)["version"].empty())
-			(*pNetworkConfig)["version"] = "CRage " BOT_VERSION " (rel. " BOT_RELDATE ")";
+		}
 
-		// explode owners
+		if ((*pNetworkConfig)["version"].empty())
+		{
+			(*pNetworkConfig)["version"] = "CRage " BOT_VERSION " (rel. " BOT_RELDATE "); http://outrage.typefish.co.uk";
+		}
+
+		/* Parse the owners! */
+		string
+			sOwners = (*m_pNetworkConfig)["owners"];
+
+		string::size_type
+			lastPos = sOwners.find_first_not_of(',', 0),
+			pos = sOwners.find_first_of(',', lastPos);
+	
+		while (string::npos != pos || string::npos != lastPos)
+		{
+			string
+				sOwner = trimString(sOwners.substr(lastPos, pos - lastPos));
+	
+			if (!sOwner.empty())
+			{
+				m_lstOwners.push_back(sOwner);
+			}
+		
+			lastPos = sOwners.find_first_not_of(',', pos);
+			pos = sOwners.find_first_of(',', lastPos);
+		}
 	}
+
 	if (pConfig != NULL)
 	{
 		foreach(Config_t, (*m_pConfig), i)
@@ -35,14 +65,17 @@ CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConf
 	}
 }
 
+
 CMaster::~CMaster()
 {
 	_onDestruct();
 }
 
+
 void CMaster::_onDestruct()
 {
 }
+
 
 void CMaster::Loop()
 {
@@ -53,6 +86,7 @@ void CMaster::Loop()
 			invokeEvent("onTick");*/
 	}
 }
+
 
 bool CMaster::_addChild(string strChild, stringmap mapInfo)
 {
@@ -75,6 +109,7 @@ bool CMaster::_addChild(string strChild, stringmap mapInfo)
 	return true;
 }
 
+
 bool CMaster::addChild(string strChild, string strNickname, string strUsername, string strRealname)
 {
 	stringmap mapInfo;
@@ -87,10 +122,12 @@ bool CMaster::addChild(string strChild, string strNickname, string strUsername, 
 	return _addChild(strChild, mapInfo);
 }
 
+
 list<CSocket *> *CMaster::getChildren()
 {
 	return &m_lstBotObjects;
 }
+
 
 CSocket *CMaster::getChildObject(string strChild)
 {
@@ -102,14 +139,17 @@ CSocket *CMaster::getChildObject(string strChild)
 	return NULL;
 }
 
+
 void CMaster::setNickname(string strChild, string strNewNick)
 {
 	CSocket *pChild = getChildObject(strChild);
+
 	if (pChild != NULL)
 	{
-		//pChild->setNickname(strNewNick);
+		pChild->setNickname(strNewNick);
 	}
 }
+
 
 bool CMaster::removeChild(string strChild, string strReason)
 {
@@ -118,7 +158,9 @@ bool CMaster::removeChild(string strChild, string strReason)
 		if (strChild == (*i)->m_strChild)
 		{
 			if ((*i)->m_mapBasic["slave"] != "true")
+			{
 				return false;
+			}
 
 			(*i)->destructBot(strReason);
 			m_lstBotObjects.erase(i);
@@ -128,13 +170,16 @@ bool CMaster::removeChild(string strChild, string strReason)
 			return true;
 		}
 	}
+
 	return false;
 }
+
 
 bool CMaster::doesChildExist(string strChild)
 {
 	return getChildObject(strChild) != NULL;
 }
+
 
 bool CMaster::resetChild(string strChild, string strMessage)
 {
@@ -148,6 +193,7 @@ bool CMaster::resetChild(string strChild, string strMessage)
 	return true;
 }
 
+
 string CMaster::getChildConfig(string strKey)
 {
 	string strValue;
@@ -155,6 +201,7 @@ string CMaster::getChildConfig(string strKey)
 		return strValue;
 	return "";
 }
+
 
 string CMaster::getMasterConfig(string strKey)
 {
@@ -164,23 +211,26 @@ string CMaster::getMasterConfig(string strKey)
 	return "";
 }
 
+
 void CMaster::getSend(CSocket *pSocket, string strLine)
 {
-	printf("[-in] %s\n", strLine.c_str());
-
 	if (strLine.length() < 3)
+	{
 		return;
+	}
 
 	m_pCurrentBot = pSocket;
 	m_strCurrentLine = strLine;
 
-	vector<string> vecParts;
+	vector<string>
+		vecParts;
 
-	std::string::size_type lastPos = strLine.find_first_not_of(' ', 0);
-	std::string::size_type pos = strLine.find_first_of(' ', lastPos);
+	string::size_type
+		lastPos = strLine.find_first_not_of(' ', 0),
+		pos = strLine.find_first_of(' ', lastPos);
 
 	int cnt = 0;
-	while (std::string::npos != pos || std::string::npos != lastPos)
+	while (string::npos != pos || string::npos != lastPos)
 	{
 		if (cnt == 3)
 		{
@@ -214,12 +264,10 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 		//return;
 	}
 
-	if (bReactevent)
-	{
-		_onRaw(vecParts);
-		return;
-	}
+	_onRaw(vecParts);
+	return;
 }
+
 
 void CMaster::_onRaw(vector<string> vecChunks)
 {
@@ -244,30 +292,37 @@ void CMaster::_onRaw(vector<string> vecChunks)
 	}
 }
 
+
 void CMaster::_onConnect()
 {
 	//invokeEvent("onConnect");
 
-	std::string strChannels = (*m_pNetworkConfig)["channels"];
+	string
+		strChannels = (*m_pNetworkConfig)["channels"];
 
-	std::string::size_type lastPos = strChannels.find_first_not_of(',', 0);
-	std::string::size_type pos = strChannels.find_first_of(',', lastPos);
+	string::size_type
+		lastPos = strChannels.find_first_not_of(',', 0),
+		pos = strChannels.find_first_of(',', lastPos);
 
-	while (std::string::npos != pos || std::string::npos != lastPos)
+	while (string::npos != pos || string::npos != lastPos)
 	{
-		std::string strChannel = trimString(strChannels.substr(lastPos, pos - lastPos));
-		if (!strChannel.empty())
-			sendRaw("JOIN " + strChannel);
+		string strChannel = trimString(strChannels.substr(lastPos, pos - lastPos));
 
-		lastPos = strChannels.find_first_not_of(' ', pos);
-		pos = strChannels.find_first_of(' ', lastPos);
+		if (!strChannel.empty())
+		{
+			sendRaw("JOIN " + strChannel);
+		}
+
+		lastPos = strChannels.find_first_not_of(',', pos);
+		pos = strChannels.find_first_of(',', lastPos);
 	}
 }
+
 
 void CMaster::sortChunks(vector<string> *vecChunks)
 {
 	vector<string>::size_type size = vecChunks->size();
-	//(*vecChunks)[0] = size > 0 ? ((*vecChunks)[0][0] == ':' ? (*vecChunks)[0].substr(1) : (*vecChunks)[0]) : "";
+
 	if (size > 0 && (*vecChunks)[0][0] == ':')
 		(*vecChunks)[0] = (*vecChunks)[0].substr(1);
 	else if (size <= 0)
@@ -276,25 +331,26 @@ void CMaster::sortChunks(vector<string> *vecChunks)
 		++size;
 	}
 
-	//(*vecChunks)[1] = size > 1 ? (*vecChunks)[1] : "";
 	if (size <= 1)
 	{
 		vecChunks->push_back("");
 		++size;
 	}
 
-	//(*vecChunks)[2] = size > 2 ? ((*vecChunks)[2][0] == ':' ? (*vecChunks)[2].substr(1) : (*vecChunks)[2]) : "";
 	if (size > 2 && (*vecChunks)[2][0] == ':')
+	{
 		(*vecChunks)[2] = (*vecChunks)[2].substr(1);
+	}
 	else if (size <= 2)
 	{
 		vecChunks->push_back("");
 		++size;
 	}
 
-	//(*vecChunks)[3] = size > 3 ? ((*vecChunks)[3][0] == ':' ? (*vecChunks)[3].substr(1) : (*vecChunks)[3]) : "";
 	if (size > 3 && (*vecChunks)[3][0] == ':')
+	{
 		(*vecChunks)[3] = (*vecChunks)[3].substr(1);
+	}
 	else if (size <= 3)
 	{
 		vecChunks->push_back("");
@@ -302,7 +358,8 @@ void CMaster::sortChunks(vector<string> *vecChunks)
 	}
 }
 
-// TODO
+
+/* Do we really need to do more in regards to this? */
 void CMaster::sendRaw(string strMessage)
 {
 	m_pCurrentBot->Output(strMessage);

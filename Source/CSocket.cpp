@@ -111,6 +111,10 @@ int CSocket::Output(string strRaw)
 {
 	strRaw += IRC_EOL;
 	printf("[out] %s", strRaw.c_str());
+
+	++m_mapStatistics["Output"]["Packets"];
+	m_mapStatistics["Output"]["Bytes"] += strRaw.length();
+
 	return send(m_Socket, strRaw.c_str(), strRaw.length(), 0);
 }
 
@@ -148,6 +152,7 @@ void CSocket::Input()
 	size_t cnt = recv(m_Socket, buf, 255, 0);
 	buf[cnt] = '\0';
 	std::string strPacket(buf);
+
 	while (cnt == 255)
 	{
 		memset(buf, 0, sizeof(buf));
@@ -158,12 +163,16 @@ void CSocket::Input()
 	
 	std::string::size_type lastPos = strPacket.find_first_not_of("\r\n", 0);
 	std::string::size_type pos = strPacket.find_first_of("\r\n", lastPos);
+
 	while (std::string::npos != pos || std::string::npos != lastPos)
 	{
 		m_pMaster->getSend(this, strPacket.substr(lastPos, pos - lastPos));
 
 		lastPos = strPacket.find_first_not_of("\r\n", pos);
 		pos = strPacket.find_first_of("\r\n", lastPos);
+
+		++m_mapStatistics["Input"]["Packets"];
+		m_mapStatistics["Input"]["Bytes"] += (strPacket.length() - (pos - lastPos));
 	}
 }
 
