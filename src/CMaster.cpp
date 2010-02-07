@@ -6,8 +6,26 @@ CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConf
 	m_pConfig = pConfig;
 	m_pNetworkConfig = pNetworkConfig;
 	m_strBotGroup = strKey;
+
 	// oPlugins
 	// oModes
+
+	if (pNetworkConfig != NULL)
+	{
+		if ((*pNetworkConfig)["delimeter"].empty())
+			(*pNetworkConfig)["delimeter"] = "!";
+
+		if ((*pNetworkConfig)["rotation"].empty())
+			(*pNetworkConfig)["rotation"] = "SEND_DEF";
+
+		if ((*pNetworkConfig)["quitmsg"].empty())
+			(*pNetworkConfig)["quitmsg"] = "CRage is going to bed :(";
+		
+		if ((*pNetworkConfig)["version"].empty())
+			(*pNetworkConfig)["version"] = "CRage " BOT_VERSION " (rel. " BOT_RELDATE ")";
+
+		// explode owners
+	}
 }
 
 CMaster::~CMaster()

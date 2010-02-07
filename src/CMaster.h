@@ -36,6 +36,7 @@ private:
 	string m_strMasterKey;
 	list<CSocket *> m_lstBotObjects;
 	CSocket *m_pCurrentBot;
+	list<string> m_lstOwners;
 };
 
 #endif

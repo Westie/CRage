@@ -24,6 +24,8 @@ static int GetRandom(int min, int max)
 	return (rand() % (max - min + 1)) + min;
 }
 
+#define BOT_VERSION "0.1"
+#define BOT_RELDATE "n/a"
 #define IRC_EOL "\r\n"
 #define CORE_SLEEP 25
 
