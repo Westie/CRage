@@ -31,7 +31,8 @@ public:
 		setNickname(string strChild, string strNewNick),
 		getSend(CSocket *pSocket, string strLine),
 		sortChunks(vector<string> *vecChunks),
-		sendRaw(string strMessage);
+		sendRaw(string strMessage),
+		printDebug(string sFormat, int iDebugLevel, ...);
 
 	bool
 		addChild(string strChild, string strNickname, string strUsername = "", string strRealname = ""),
@@ -50,6 +51,17 @@ private:
 
 	void
 		_onRaw(vector<string> vecChunks),
+		_onJoin(vector<string> vecChunks),
+		_onKick(vector<string> vecChunks),
+		_onPart(vector<string> vecChunks),
+		_onQuit(vector<string> vecChunks),
+		_onMode(vector<string> vecChunks),
+		_onNick(vector<string> vecChunks),
+		_onNotice(vector<string> vecChunks),
+		_onCTCP(vector<string> vecChunks),
+		_onPrivmsg(vector<string> vecChunks),
+		_onTopic(vector<string> vecChunks),
+		_onError(vector<string> vecChunks),
 		_onConnect();
 
 	string

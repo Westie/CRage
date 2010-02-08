@@ -124,8 +124,9 @@ void CSocket::destructBot(string strMessage)
 
 int CSocket::Output(string strRaw)
 {
+	m_pMaster->printDebug("[out] " + strRaw, 1);
+
 	strRaw += IRC_EOL;
-	printf("[out] %s", strRaw.c_str());
 
 	++m_mapStatistics["Output"]["Packets"];
 	m_mapStatistics["Output"]["Bytes"] += strRaw.length();

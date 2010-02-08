@@ -251,25 +251,112 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 
 	sortChunks(&vecParts);
 
-	bool bReactevent = (getChildConfig("reactevent") != "false");
+	bool bReactEvent = (getChildConfig("reactevent") != "false");
 
-	if (bReactevent)
-	{
-	}
-
-	if (vecParts[0] == "PING")
+	/* Ouch, this will hurt. */
+	if(vecParts[0] == "PING")
 	{
 		pSocket->OutputFormat("PONG " + vecParts[1]);
 	}
-	else if (vecParts[1] == "PONG")
+	else if(vecParts[1] == "PONG")
 	{
-		//iNoReply = 0;
+		// iNoReply = 0;
 		//iHasBeenReply = true;
 		//return;
 	}
 
-	_onRaw(vecParts);
+	if(!bReactEvent)
+	{
+		_onRaw(vecParts);
+		return;
+	}
+
+	if(vecParts[1] == "JOIN")
+	{
+		_onJoin(vecParts);
+	}
+	else if(vecParts[1] == "PART")
+	{
+		_onPart(vecParts);
+	}
+	else if(vecParts[1] == "KICK")
+	{
+		_onKick(vecParts);
+	}
+	else if(vecParts[1] == "QUIT")
+	{
+		_onQuit(vecParts);
+	}
+	else if(vecParts[1] == "MODE")
+	{
+		_onMode(vecParts);
+	}
+	else if(vecParts[1] == "NICK")
+	{
+		_onNick(vecParts);
+	}
+	else
+	{
+		_onRaw(vecParts);
+	}
+
 	return;
+}
+
+
+void CMaster::_onJoin(vector<string> vecChunks)
+{
+	printDebug("[JOIN] %s joined %s", 2, vecChunks[0].c_str(), vecChunks[2].c_str());
+}
+
+
+void CMaster::_onKick(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onPart(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onQuit(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onMode(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onNick(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onNotice(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onCTCP(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onPrivmsg(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onTopic(vector<string> vecChunks)
+{
+}
+
+
+void CMaster::_onError(std::vector<string> vecChunks)
+{
 }
 
 
@@ -336,7 +423,9 @@ void CMaster::sortChunks(vector<string> *vecChunks)
 	vector<string>::size_type size = vecChunks->size();
 
 	if (size > 0 && (*vecChunks)[0][0] == ':')
+	{
 		(*vecChunks)[0] = (*vecChunks)[0].substr(1);
+	}
 	else if (size <= 0)
 	{
 		vecChunks->push_back("");
@@ -368,6 +457,25 @@ void CMaster::sortChunks(vector<string> *vecChunks)
 		vecChunks->push_back("");
 		++size;
 	}
+}
+
+
+void CMaster::printDebug(string sFormat, int iDebugLevel, ...)
+{
+	if(iDebugLevel >= 2)
+	{
+		va_list
+			vArgs;
+
+		char
+			sBuffer[256];
+
+		va_start(vArgs, iDebugLevel);
+		vsnprintf(sBuffer, sizeof(sBuffer), sFormat.c_str(), vArgs);
+		printf("%s\r\n", sBuffer);
+	}
+
+	return;
 }
 
 
