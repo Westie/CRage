@@ -151,7 +151,7 @@ void CSocket::Input()
 	char buf[256];
 	size_t cnt = recv(m_Socket, buf, 255, 0);
 	buf[cnt] = '\0';
-	std::string strPacket(buf);
+	string strPacket(buf);
 
 	while (cnt == 255)
 	{
@@ -161,10 +161,11 @@ void CSocket::Input()
 		strPacket += buf;
 	}
 	
-	std::string::size_type lastPos = strPacket.find_first_not_of("\r\n", 0);
-	std::string::size_type pos = strPacket.find_first_of("\r\n", lastPos);
+	string::size_type
+		lastPos = strPacket.find_first_not_of("\r\n", 0),
+		pos = strPacket.find_first_of("\r\n", lastPos);
 
-	while (std::string::npos != pos || std::string::npos != lastPos)
+	while (string::npos != pos || string::npos != lastPos)
 	{
 		m_pMaster->getSend(this, strPacket.substr(lastPos, pos - lastPos));
 

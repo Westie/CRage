@@ -1,12 +1,12 @@
 #include "StdInc.h"
 #include "StringUtils.h"
 
-int toNumber(std::string &str)
+int toNumber(string &str)
 {
 	return atoi(str.c_str());
 }
 
-long toLongNumber(std::string &str)
+long toLongNumber(string &str)
 {
 	return atol(str.c_str());
 }
@@ -67,7 +67,7 @@ string trimString(const char *str)
 	return ret;
 }
 
-std::string trimString(std::string &str)
+string trimString(string &str)
 {
 	string ret(str);
 

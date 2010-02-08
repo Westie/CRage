@@ -74,7 +74,7 @@ void CConfigParser::parseConfigFile(string strConfig)
 	
 
 	// parse it into mapConfig
-	ifstream stream(strPath.c_str(), std::ios::in);
+	ifstream stream(strPath.c_str(), ios::in);
 	if (stream.fail())
 	{
 		// Error handling
@@ -153,7 +153,7 @@ void CConfigParser::parseConfigFile(string strConfig)
 	}
 	*/
 
-	std::string strName = strConfig;
+	string strName = strConfig;
 	*(strName.end() - 4) = '\0'; // remove ".ini"
 
 	// add a new master for this config
