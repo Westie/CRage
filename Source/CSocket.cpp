@@ -171,7 +171,7 @@ void CSocket::Input()
 
 	char buf[256];
 	size_t cnt = recv(m_Socket, buf, 255, 0);
-	if (cnt <= 0)
+	if (cnt == -1)
 	{
 		return;
 	}
