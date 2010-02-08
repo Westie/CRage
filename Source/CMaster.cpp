@@ -28,6 +28,11 @@ CMaster::CMaster(string strKey, NetworkConfig_t *pNetworkConfig, Config_t *pConf
 			(*pNetworkConfig)["quitmsg"] = "CRage is going to bed :(";
 		}
 
+		if ((*pNetworkConfig)["debuglevel"].empty())
+		{
+			(*pNetworkConfig)["debuglevel"] = "0";
+		}
+
 		if ((*pNetworkConfig)["version"].empty())
 		{
 			(*pNetworkConfig)["version"] = "CRage " BOT_VERSION " (rel. " BOT_RELDATE "); http://outrage.typefish.co.uk";
@@ -271,6 +276,7 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 		return;
 	}
 
+	/* This will hurt even more! */
 	if(vecParts[1] == "JOIN")
 	{
 		_onJoin(vecParts);
@@ -295,6 +301,30 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 	{
 		_onNick(vecParts);
 	}
+	else if(vecParts[1] == "NOTICE")
+	{
+		_onNotice(vecParts);
+	}
+	else if(vecParts[1] == "PRIVMSG")
+	{
+		if(vecParts[3][0] == '\001')
+		{
+			vecParts[3] = vecParts[3].substr(1);
+			_onCTCP(vecParts);
+
+			return;
+		}
+
+		_onPrivmsg(vecParts);
+	}
+	else if(vecParts[1] == "TOPIC")
+	{
+		_onTopic(vecParts);
+	}
+	else if(vecParts[1] == "ERROR")
+	{
+		_onError(vecParts);
+	}
 	else
 	{
 		_onRaw(vecParts);
@@ -304,63 +334,67 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 }
 
 
-void CMaster::_onJoin(vector<string> vecChunks)
+void CMaster::_onJoin(vector<string> &vecChunks)
 {
 	printDebug("[JOIN] %s joined %s", 2, vecChunks[0].c_str(), vecChunks[2].c_str());
 }
 
 
-void CMaster::_onKick(vector<string> vecChunks)
+void CMaster::_onKick(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onPart(vector<string> vecChunks)
+void CMaster::_onPart(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onQuit(vector<string> vecChunks)
+void CMaster::_onQuit(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onMode(vector<string> vecChunks)
+void CMaster::_onMode(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onNick(vector<string> vecChunks)
+void CMaster::_onNick(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onNotice(vector<string> vecChunks)
+void CMaster::_onNotice(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onCTCP(vector<string> vecChunks)
+void CMaster::_onCTCP(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onPrivmsg(vector<string> vecChunks)
+void CMaster::_onPrivmsg(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onTopic(vector<string> vecChunks)
+void CMaster::_onTopic(vector<string> &vecChunks)
 {
 }
 
 
-void CMaster::_onError(std::vector<string> vecChunks)
+void CMaster::_onError(std::vector<string> &vecChunks)
 {
+	if (vecChunks[2] == ":Closing Link:")
+	{
+		m_pCurrentBot->closeSocket();
+	}
 }
 
 
-void CMaster::_onRaw(vector<string> vecChunks)
+void CMaster::_onRaw(vector<string> &vecChunks)
 {
 	switch (toNumber(vecChunks[1]))
 	{
@@ -462,7 +496,7 @@ void CMaster::sortChunks(vector<string> *vecChunks)
 
 void CMaster::printDebug(string sFormat, int iDebugLevel, ...)
 {
-	if(iDebugLevel >= 2)
+	if(iDebugLevel <= toNumber((*m_pNetworkConfig)["debuglevel"]))
 	{
 		va_list
 			vArgs;

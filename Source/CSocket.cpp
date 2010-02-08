@@ -124,7 +124,7 @@ void CSocket::destructBot(string strMessage)
 
 int CSocket::Output(string strRaw)
 {
-	m_pMaster->printDebug("[out] " + strRaw, 1);
+	m_pMaster->printDebug("[out] %s", 3, strRaw);
 
 	strRaw += IRC_EOL;
 
@@ -167,10 +167,12 @@ void CSocket::Input()
 	}
 
 	if (m_bIsWaiting)
+	{
 		return;
+	}
 
-	char buf[256];
-	size_t cnt = recv(m_Socket, buf, 255, 0);
+	char buf[513];
+	size_t cnt = recv(m_Socket, buf, 513, 0);
 	if (cnt == -1)
 	{
 		return;
@@ -182,7 +184,7 @@ void CSocket::Input()
 	while (cnt == 255)
 	{
 		memset(buf, 0, sizeof(buf));
-		cnt = recv(m_Socket, buf, 255, 0);
+		cnt = recv(m_Socket, buf, 512, 0);
 		buf[cnt] = '\0';
 		strPacket += buf;
 	}
@@ -193,7 +195,7 @@ void CSocket::Input()
 
 	while (string::npos != pos || string::npos != lastPos)
 	{
-		printf("[in]  %s\n", strPacket.substr(lastPos, pos - lastPos).c_str());
+		m_pMaster->printDebug("[in] " + strPacket.substr(lastPos, pos - lastPos), 3);
 		m_pMaster->getSend(this, strPacket.substr(lastPos, pos - lastPos));
 
 		lastPos = strPacket.find_first_not_of("\r\n", pos);
