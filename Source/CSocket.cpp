@@ -1,5 +1,6 @@
 #include "StdInc.h"
 #include "CSocket.h"
+#include <fcntl.h>
 
 CSocket::CSocket(CMaster *pMaster, string strChild, stringmap mapBasic)
 {
@@ -82,6 +83,21 @@ void CSocket::constructBot()
 	OutputFormat("NICK %s", m_mapBasic["nickname"].c_str());
 	OutputFormat("USER %s x x :%s", m_mapBasic["username"].c_str(), m_mapBasic["realname"].c_str());
 
+#ifdef WIN32
+	unsigned long iMode = 1;
+	ioctlsocket(m_Socket, FIONBIO, &iMode);
+#else
+	int iFlags;
+	#ifdef O_NONBLOCK
+	if ((iFlags = fcntl(m_Socket, F_GETFL, 0)) == -1)
+		iFlags = 0;
+	fcntl(m_Socket, F_SETFL, flags | O_NONBLOCK);
+	#else
+	iFlags = 1;
+	ioctl(m_Socket, FIOBIO, &iFlags);
+	#endif
+#endif
+
 	m_bActive = true;
 	m_bIsWaiting = false;
 
@@ -90,8 +106,7 @@ void CSocket::constructBot()
 
 void CSocket::destructBot()
 {
-	// TODO: use quit message from config
-	destructBot("");
+	destructBot((*m_pMaster->m_pNetworkConfig)["quitmsg"]);
 }
 
 void CSocket::destructBot(string strMessage)
@@ -101,7 +116,7 @@ void CSocket::destructBot(string strMessage)
 
 	// Delete ping timer
 
-	closesocket(m_Socket);
+	//closesocket(m_Socket);
 
 	m_bActive = false;
 	m_bIsWaiting = false;
@@ -129,6 +144,11 @@ int CSocket::OutputFormat(string strFormat, ...)
 	return iRet;
 }
 
+int CSocket::closeSocket()
+{
+	return closesocket(m_Socket);
+}
+
 void CSocket::Input()
 {
 	if (m_pMaster == NULL)
@@ -150,6 +170,11 @@ void CSocket::Input()
 
 	char buf[256];
 	size_t cnt = recv(m_Socket, buf, 255, 0);
+	if (cnt <= 0)
+	{
+		return;
+	}
+
 	buf[cnt] = '\0';
 	string strPacket(buf);
 
@@ -167,6 +192,7 @@ void CSocket::Input()
 
 	while (string::npos != pos || string::npos != lastPos)
 	{
+		printf("[in]  %s\n", strPacket.substr(lastPos, pos - lastPos).c_str());
 		m_pMaster->getSend(this, strPacket.substr(lastPos, pos - lastPos));
 
 		lastPos = strPacket.find_first_not_of("\r\n", pos);

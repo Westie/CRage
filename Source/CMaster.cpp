@@ -74,6 +74,10 @@ CMaster::~CMaster()
 
 void CMaster::_onDestruct()
 {
+	foreach (list<CSocket *>, m_lstBotObjects, i)
+	{
+		(*i)->destructBot();
+	}
 }
 
 
@@ -288,6 +292,14 @@ void CMaster::_onRaw(vector<string> vecChunks)
 			}
 	
 			return;
+		}
+	}
+
+	if (vecChunks[1] == "ERROR")
+	{
+		if (vecChunks[2] == ":Closing Link:")
+		{
+			m_pCurrentBot->closeSocket();
 		}
 	}
 }

@@ -20,7 +20,8 @@ public:
 
 	int
 		OutputFormat(string strFormat, ...),
-		Output(string strRaw);
+		Output(string strRaw),
+		closeSocket();
 
 	string
 		m_strChild;

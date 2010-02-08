@@ -29,6 +29,23 @@ void CControl::botSend(string strConfig, string strMessage)
 	}
 }
 
+void CControl::handleExitSignal()
+{
+	for (map<string, CMaster *>::iterator i = m_mapBots.begin(); i != m_mapBots.end(); ++i)
+	{
+		if (i->second != NULL)
+		{
+			printf("child: '%s'\n", i->first.c_str());
+			//(*i).second->_onDestruct();
+			delete i->second;
+			i->second = NULL;
+			i = m_mapBots.erase(i);
+			if (i == m_mapBots.end())
+				break;
+		}
+	}
+}
+
 /* IDK.. dimensions???
 map2d CControl::botGetInfo(string strConfig)
 {
