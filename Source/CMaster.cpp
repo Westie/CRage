@@ -315,12 +315,12 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 			return;
 		}
 
-		switch(vecParts[2])
+		switch(vecParts[2][0])
 		{
 			case '&':
 			case '#':
 			{
-				_onMesssage(vecParts);
+				_onMessage(vecParts);
 				return;
 			}
 
@@ -385,6 +385,7 @@ void CMaster::_onNotice(vector<string> &vecChunks)
 
 void CMaster::_onCTCP(vector<string> &vecChunks)
 {
+
 }
 
 
