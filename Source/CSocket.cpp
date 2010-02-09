@@ -181,10 +181,10 @@ void CSocket::Input()
 	buf[cnt] = '\0';
 	string strPacket(buf);
 
-	while (cnt == 255)
+	while (cnt == 512)
 	{
 		memset(buf, 0, sizeof(buf));
-		cnt = recv(m_Socket, buf, 512, 0);
+		cnt = recv(m_Socket, buf, 513, 0);
 		buf[cnt] = '\0';
 		strPacket += buf;
 	}
