@@ -59,7 +59,8 @@ private:
 		_onNick(vector<string> &vecChunks),
 		_onNotice(vector<string> &vecChunks),
 		_onCTCP(vector<string> &vecChunks),
-		_onPrivmsg(vector<string> &vecChunks),
+		_onPrivMessage(vector<string> &vecChunks),
+		_onMessage(vector<string> &vecChunks),
 		_onTopic(vector<string> &vecChunks),
 		_onError(vector<string> &vecChunks),
 		_onConnect();

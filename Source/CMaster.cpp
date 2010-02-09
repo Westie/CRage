@@ -315,7 +315,20 @@ void CMaster::getSend(CSocket *pSocket, string strLine)
 			return;
 		}
 
-		_onPrivmsg(vecParts);
+		switch(vecParts[2])
+		{
+			case '&':
+			case '#':
+			{
+				_onMesssage(vecParts);
+				return;
+			}
+
+			default:
+			{
+				_onPrivMessage(vecParts);
+			}
+		}
 	}
 	else if(vecParts[1] == "TOPIC")
 	{
@@ -375,7 +388,12 @@ void CMaster::_onCTCP(vector<string> &vecChunks)
 }
 
 
-void CMaster::_onPrivmsg(vector<string> &vecChunks)
+void CMaster::_onPrivMessage(vector<string> &vecChunks)
+{
+}
+
+
+void CMaster::_onMessage(vector<string> &vecChunks)
 {
 }
 
