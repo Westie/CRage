@@ -25,4 +25,4 @@ StdInc.o:
 	g++ $(COMPILE_FLAGS) -c StdInc.cpp
 
 clean:
-	rm -rf ../Release/*.o
+	rm -rf *.o
