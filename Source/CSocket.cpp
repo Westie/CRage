@@ -171,7 +171,7 @@ void CSocket::Input()
 		return;
 	}
 
-	char buf[513];
+	char buf[1024];
 	size_t cnt = recv(m_Socket, buf, 512, 0);
 	if (cnt == -1)
 	{
@@ -195,7 +195,7 @@ void CSocket::Input()
 
 	while (string::npos != pos || string::npos != lastPos)
 	{
-		m_pMaster->printDebug("[in] " + strPacket.substr(lastPos, pos - lastPos), 3);
+		m_pMaster->printDebug("[in] %s", 3, strPacket.substr(lastPos, pos - lastPos).c_str());
 		m_pMaster->getSend(this, strPacket.substr(lastPos, pos - lastPos));
 
 		lastPos = strPacket.find_first_not_of("\r\n", pos);
