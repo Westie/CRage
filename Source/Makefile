@@ -3,7 +3,7 @@
 #CControl.cpp       CMaster.h    CSocket.h    StdInc.cpp     StringUtils.h
 
 CRage: CConfigParser.o CControl.o CMaster.o CSocket.o Main.o StringUtils.o StdInc.o
-	g++ -o CRage CConfigParser.o CControl.o CMaster.o CSocket.o Main.o StringUtils.o StdInc.o
+	g++ -o ../Release/CRage CConfigParser.o CControl.o CMaster.o CSocket.o Main.o StringUtils.o StdInc.o
 
 CConfigParser.o:
 	g++ -c CConfigParser.cpp
@@ -25,3 +25,6 @@ StringUtils.o:
 
 StdInc.o:
 	g++ -c StdInc.cpp
+
+clean:
+	rm -rf ../Release/*.o
