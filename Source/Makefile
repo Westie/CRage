@@ -1,30 +1,28 @@
-#CConfigParser.cpp  CControl.h   CRage        Definitions.h  StdInc.h
-#CConfigParser.h    CMaster.cpp  CSocket.cpp  Main.cpp       StringUtils.cpp
-#CControl.cpp       CMaster.h    CSocket.h    StdInc.cpp     StringUtils.h
+COMPILE_FLAGS=-m32
 
 CRage: CConfigParser.o CControl.o CMaster.o CSocket.o Main.o StringUtils.o StdInc.o
-	g++ -o ../Release/CRage CConfigParser.o CControl.o CMaster.o CSocket.o Main.o StringUtils.o StdInc.o
+	g++ $(COMPILE_FLAGS) -o ../Release/CRage CConfigParser.o CControl.o CMaster.o CSocket.o Main.o StringUtils.o StdInc.o
 
 CConfigParser.o:
-	g++ -c CConfigParser.cpp
+	g++ $(COMPILE_FLAGS) -c CConfigParser.cpp
 
 CControl.o:
-	g++ -c CControl.cpp
+	g++ $(COMPILE_FLAGS) -c CControl.cpp
 
 CMaster.o:
-	g++ -c CMaster.cpp
+	g++ $(COMPILE_FLAGS) -c CMaster.cpp
 
 CSocket.o:
-	g++ -c CSocket.cpp
+	g++ $(COMPILE_FLAGS) -c CSocket.cpp
 
 Main.o:
-	g++ -c Main.cpp
+	g++ $(COMPILE_FLAGS) -c Main.cpp
 
 StringUtils.o:
-	g++ -c StringUtils.cpp
+	g++ $(COMPILE_FLAGS) -c StringUtils.cpp
 
 StdInc.o:
-	g++ -c StdInc.cpp
+	g++ $(COMPILE_FLAGS) -c StdInc.cpp
 
 clean:
 	rm -rf ../Release/*.o

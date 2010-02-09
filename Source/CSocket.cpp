@@ -171,7 +171,7 @@ void CSocket::Input()
 		return;
 	}
 
-	char buf[1024]; // TODO: Properly sort this.
+	char buf[513];
 	size_t cnt = recv(m_Socket, buf, 512, 0);
 	if (cnt == -1)
 	{
@@ -181,7 +181,7 @@ void CSocket::Input()
 	buf[cnt] = '\0';
 	string strPacket(buf);
 
-	while (cnt >= 512)
+	while (cnt >= 511)
 	{
 		memset(buf, 0, sizeof(buf));
 		cnt = recv(m_Socket, buf, 512, 0);
