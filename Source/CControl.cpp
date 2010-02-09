@@ -31,6 +31,7 @@ void CControl::botSend(string strConfig, string strMessage)
 
 void CControl::handleExitSignal()
 {
+#ifdef WIN32
 	for (map<string, CMaster *>::iterator i = m_mapBots.begin(); i != m_mapBots.end(); ++i)
 	{
 		if (i->second != NULL)
@@ -44,6 +45,7 @@ void CControl::handleExitSignal()
 				break;
 		}
 	}
+#endif
 }
 
 /* IDK.. dimensions???

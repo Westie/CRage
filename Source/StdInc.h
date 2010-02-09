@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include <string.h>
 #include <string>
 #include "StringUtils.h"
 #include "Definitions.h"
@@ -12,7 +13,9 @@
   #include <sys/socket.h>
   #include <arpa/inet.h>
   #include <sys/types.h>
+  #include <netdb.h>
   #include <unistd.h>
+  #include <stdlib.h>
 
   typedef int SOCKET;
 

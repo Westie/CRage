@@ -7,6 +7,7 @@
 
 #ifndef WIN32
 #include <dirent.h>
+#include <sys/stat.h>
 #endif
 
 CConfigParser::CConfigParser()
@@ -44,14 +45,14 @@ void CConfigParser::parseDirectory()
 		while ((pDirEntry = readdir(pHandle)) != NULL)
 		{
 			struct stat s;
-			int ret = stat(("./Configuration/" + pDirEntry->d_name, &s);
-			if (ret != 0 && !S_ISDIR(s.st_mode))
+			int ret = stat((string("./Configuration/") + pDirEntry->d_name).c_str(), &s);
+			if (ret == 0 && !S_ISDIR(s.st_mode))
 			{
-				size_t namelen = strlen(pDirEntry->d_name);
-				const char *short = pDirEntry->d_name;
-				if (short[namelen - 4] == '.' && short[namelen - 3] == 'i' && short[namelen - 2] == 'n' && short[namelen - 1] == 'i' && short[namelen] == '\0')
+				const char *pShort = pDirEntry->d_name;
+				size_t namelen = strlen(pShort);
+				if (pShort[namelen - 4] == '.' && pShort[namelen - 3] == 'i' && pShort[namelen - 2] == 'n' && pShort[namelen - 1] == 'i' && pShort[namelen] == '\0')
 				{
-					parseConfigFile(short);
+					parseConfigFile(pShort);
 				}
 			}
 		}

@@ -14,7 +14,33 @@ long toLongNumber(string &str)
 string toString(int num, int radix)
 {
 	char tmp[12];
+#ifdef WIN32
 	itoa(num, tmp, radix);
+#else
+	char* ptr = tmp, *ptr1 = tmp, tmp_char;
+	int tmp_value;
+
+	do
+	{
+		tmp_value = num;
+		num /= 10;
+		*ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz" [35 + (tmp_value - num * 10)];
+	}
+	while (num);
+
+	// Apply negative sign
+	if (tmp_value < 0)
+	{
+		*ptr++ = '-';
+	}
+	*ptr-- = '\0';
+	while (ptr1 < ptr)
+	{
+		tmp_char = *ptr;
+		*ptr-- = *ptr1;
+		*ptr1++ = tmp_char;
+	}
+#endif
 	return string(tmp);
 }
 
@@ -67,7 +93,7 @@ string trimString(const char *str)
 	return ret;
 }
 
-string trimString(string &str)
+string trimString(string str)
 {
 	string ret(str);
 

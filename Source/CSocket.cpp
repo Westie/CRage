@@ -91,7 +91,7 @@ void CSocket::constructBot()
 	#ifdef O_NONBLOCK
 	if ((iFlags = fcntl(m_Socket, F_GETFL, 0)) == -1)
 		iFlags = 0;
-	fcntl(m_Socket, F_SETFL, flags | O_NONBLOCK);
+	fcntl(m_Socket, F_SETFL, iFlags | O_NONBLOCK);
 	#else
 	iFlags = 1;
 	ioctl(m_Socket, FIOBIO, &iFlags);
@@ -124,7 +124,7 @@ void CSocket::destructBot(string strMessage)
 
 int CSocket::Output(string strRaw)
 {
-	m_pMaster->printDebug("[out] %s", 3, strRaw);
+	m_pMaster->printDebug("[out] %s", 3, strRaw.c_str());
 
 	strRaw += IRC_EOL;
 
@@ -181,7 +181,7 @@ void CSocket::Input()
 	buf[cnt] = '\0';
 	string strPacket(buf);
 
-	while (cnt == 512)
+	while (cnt >= 512)
 	{
 		memset(buf, 0, sizeof(buf));
 		cnt = recv(m_Socket, buf, 513, 0);

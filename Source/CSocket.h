@@ -29,7 +29,7 @@ public:
 	stringmap
 		m_mapBasic;
 
-	map<string, map<string, int>>
+	map<string, map<string, int> >
 		m_mapStatistics;
 
 private:
