@@ -46,4 +46,6 @@ static unsigned long GetTickCount()
 #define IRC_EOL "\r\n"
 #define CORE_SLEEP 25
 
+#define DEBUG_PRINT_IO		0x20
+
 #endif
