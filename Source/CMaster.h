@@ -42,7 +42,9 @@ public:
 
 	string
 		getChildConfig(string strKey),
-		getMasterConfig(string strKey);
+		getMasterConfig(string strKey),
+		getNickname(string strHost),
+		getHostname(string strHost);
 
 private:
 	bool

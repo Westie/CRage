@@ -221,6 +221,21 @@ string CMaster::getMasterConfig(string strKey)
 }
 
 
+string CMaster::getNickname(string strHost)
+{
+	string::size_type iPossiblePos = strHost.find(':');
+	string::size_type iSepPos = strHost.find('!');
+	return strHost.substr(iPossiblePos != string::npos ? iPossiblePos : 0, iSepPos - iPossiblePos - 1);
+}
+
+
+string CMaster::getHostname(string strHost)
+{
+	string::size_type iSepPos = strHost.find('@');
+	return strHost.substr(iSepPos + 1);
+}
+
+
 void CMaster::getSend(CSocket *pSocket, string strLine)
 {
 	if (strLine.length() < 3)

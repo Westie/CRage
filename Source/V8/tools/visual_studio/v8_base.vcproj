@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9,00"
 	Name="v8_base"
 	ProjectGUID="{EC8B7909-62AF-470D-A75D-E1D89C837142}"
 	RootNamespace="v8_base"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -186,14 +187,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\ia32\assembler-ia32.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\regexp-macro-assembler-irregexp-inl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\regexp-stack.h"
 				>
 			</File>
 			<File
@@ -396,18 +389,18 @@
 				RelativePath="..\..\src\factory.h"
 				>
 			</File>
-                        <File
-                                RelativePath="..\..\src\ia32\fast-codegen-ia32.cc"
-                                >
-                        </File>
-                        <File
-                                RelativePath="..\..\src\fast-codegen.cc"
-                                >
-                        </File>
-                        <File
-                                RelativePath="..\..\src\fast-codegen.h"
-                                >
-                        </File>
+			<File
+				RelativePath="..\..\src\ia32\fast-codegen-ia32.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\fast-codegen.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\fast-codegen.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\flags.cc"
 				>
@@ -444,18 +437,18 @@
 				RelativePath="..\..\src\frames.h"
 				>
 			</File>
-                        <File
-                                RelativePath="..\..\src\ia32\full-codegen-ia32.cc"
-                                >
-                        </File>
-                        <File
-                                RelativePath="..\..\src\full-codegen.cc"
-                                >
-                        </File>
-                        <File
-                                RelativePath="..\..\src\full-codegen.h"
-                                >
-                        </File>
+			<File
+				RelativePath="..\..\src\ia32\full-codegen-ia32.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\full-codegen.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\full-codegen.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\func-name-inferrer.cc"
 				>
@@ -501,19 +494,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\heap.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\heap.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\heap-profiler.cc"
 				>
 			</File>
 			<File
 				RelativePath="..\..\src\heap-profiler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\heap.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\heap.h"
 				>
 			</File>
 			<File
@@ -545,7 +538,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\jump-target.h"
+				RelativePath="..\..\src\jsregexp.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\jsregexp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\ia32\jump-target-ia32.cc"
 				>
 			</File>
 			<File
@@ -557,15 +558,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ia32\jump-target-ia32.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\jsregexp.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\jsregexp.h"
+				RelativePath="..\..\src\jump-target.h"
 				>
 			</File>
 			<File
@@ -577,15 +570,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\log.cc"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\log-inl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\log.h"
 				>
 			</File>
 			<File
@@ -594,6 +579,14 @@
 			</File>
 			<File
 				RelativePath="..\..\src\log-utils.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\log.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\log.h"
 				>
 			</File>
 			<File
@@ -713,19 +706,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\regexp-macro-assembler-irregexp-inl.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\regexp-macro-assembler-irregexp.cc"
 				>
 			</File>
 			<File
 				RelativePath="..\..\src\regexp-macro-assembler-irregexp.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\regexp-macro-assembler.cc"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\regexp-macro-assembler.h"
 				>
 			</File>
 			<File
@@ -737,11 +726,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\regexp-macro-assembler.cc"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\regexp-macro-assembler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\regexp-stack.cc"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\register-allocator.h"
+				RelativePath="..\..\src\regexp-stack.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\ia32\register-allocator-ia32.cc"
 				>
 			</File>
 			<File
@@ -749,7 +750,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ia32\register-allocator-ia32.cc"
+				RelativePath="..\..\src\register-allocator.h"
 				>
 			</File>
 			<File
@@ -925,7 +926,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\virtual-frame.h"
+				RelativePath="..\..\src\ia32\virtual-frame-ia32.cc"
 				>
 			</File>
 			<File
@@ -937,7 +938,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ia32\virtual-frame-ia32.cc"
+				RelativePath="..\..\src\virtual-frame.h"
 				>
 			</File>
 			<File

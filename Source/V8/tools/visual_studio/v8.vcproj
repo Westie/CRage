@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="9,00"
 	Name="v8"
 	ProjectGUID="{21E22961-22BF-4493-BD3A-868F93DA5179}"
 	RootNamespace="v8"
 	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -143,6 +144,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\json-delay.js"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\macros.py"
 				>
 			</File>
@@ -160,10 +165,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\regexp-delay.js"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\json-delay.js"
 				>
 			</File>
 			<File
@@ -187,7 +188,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Processing js files..."
-						CommandLine=".\js2c.cmd ..\..\src &quot;$(IntDir)\DerivedSources&quot;"
+						CommandLine=".\js2c.cmd ..\..\src &quot;$(IntDir)\DerivedSources&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="..\..\src\macros.py;..\..\src\runtime.js;..\..\src\v8natives.js;..\..\src\array.js;..\..\src\string.js;..\..\src\uri.js;..\..\src\math.js;..\..\src\messages.js;..\..\src\apinatives.js;..\..\src\debug-delay.js;..\..\src\mirror-delay.js;..\..\src\date-delay.js;..\..\src\regexp-delay.js;..\..\src\json-delay.js"
 						Outputs="$(IntDir)\DerivedSources\natives.cc;$(IntDir)\DerivedSources\natives-empty.cc"
 					/>
@@ -198,7 +199,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Processing js files..."
-						CommandLine=".\js2c.cmd ..\..\src &quot;$(IntDir)\DerivedSources&quot;"
+						CommandLine=".\js2c.cmd ..\..\src &quot;$(IntDir)\DerivedSources&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="..\..\src\macros.py;..\..\src\runtime.js;..\..\src\v8natives.js;..\..\src\array.js;..\..\src\string.js;..\..\src\uri.js;..\..\src\math.js;..\..\src\messages.js;..\..\src\apinatives.js;..\..\src\debug-delay.js;..\..\src\mirror-delay.js;..\..\src\date-delay.js;..\..\src\regexp-delay.js;..\..\src\json-delay.js"
 						Outputs="$(IntDir)\DerivedSources\natives.cc;$(IntDir)\DerivedSources\natives-empty.cc"
 					/>
